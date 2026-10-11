@@ -1,0 +1,27 @@
+# 产品清单：母仓库读这个文件生成产品目录。顶层字段一行一个，tools/products.sh 只认这种写法。
+slug: __SLUG__                  # 小写英文加连字符，也是子仓库名 product-art-__SLUG__ 的后半截
+episode: __EP__                 # 系列里的第几期
+name: __NAME__
+name_en:
+status: research                # research → storyboard → preview → gated → published
+desire:                         # 一句话：人想少干哪件累活
+thesis:                         # 一句话因果论点
+question:                       # 结尾的消失之问
+next:                           # 下一期的 slug，片尾预告用
+
+films:
+  - id: 60s
+    path: films/60s
+    film: ep__EP2__             # 引擎的 --film 名，等于 eras_<film>.js
+    seconds: 60
+    style: 单一当代扁平插画（印刷颗粒＋六色板）
+    status: storyboard
+    preview:
+
+ad:
+  slot:                         # 秒；当代段之前的硬切点
+  placement: 当代段之前
+  categories: []
+  sold: false
+
+todo: []

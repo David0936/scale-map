@@ -1,0 +1,8 @@
+# 引擎工作副本与渲染产物（可由母仓库 motion/sync.sh 重建，不进仓库）
+films/*/.work/
+films/*/渲染/
+films/*/静帧/
+films/*/qa/
+films/*/output/
+films/*/*.wav
+.DS_Store

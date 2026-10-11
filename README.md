@@ -41,6 +41,21 @@ Scale Map 是一套研究驱动的视觉叙事系统。它从人的欲望出发�
 
 图文产出研究论点、六层地图、逐页故事板、视觉与角色调度、可生成的图像 brief、发布文案和证据账本。短片在此基础上再产出镜头表、三个风格方向、逐段场景代码和过了门禁的成片。
 
+## 产品
+
+每个产品是一个独立的子仓库（git submodule），挂在 `products/<slug>/`。母仓库放方法和工具，子仓库放这一期的镜头表、证据、场景、配乐和成片。设计说明见 [docs/设计.md](docs/设计.md)。
+
+<!-- products:start -->
+| 期 | 产品 | 结尾问题 | 状态 | 子仓库 |
+|---|---|---|---|---|
+| EP01 | [扫地机器人](products/robot-vacuum/) | 地面自己会干净的那天，还需要扫地机吗？ | 预览已出 | `product-art-robot-vacuum` |
+<!-- products:end -->
+
+```sh
+git clone --recurse-submodules https://github.com/David0936/product-art.git   # 连同所有产品一起拉
+tools/new-product.sh dishwasher 洗碗机 2                                      # 新开一期
+```
+
 ## 目录
 
 | 路径 | 内容 |
@@ -52,12 +67,15 @@ Scale Map 是一套研究驱动的视觉叙事系统。它从人的欲望出发�
 | [references/media-relay.md](references/media-relay.md) | 年代 → 媒介 → 渲染器 → 转场对照表，以及备选方向 |
 | [references/storyboard-template.md](references/storyboard-template.md) | Scale Map 版镜头表模板 |
 | [motion/](motion/) | 动画工具包和接引擎的脚本 |
-| [episodes/01-robot-vacuum/](episodes/01-robot-vacuum/) | 第一集：扫地机器人（进行中，参考实现） |
+| [templates/product/](templates/product/) | 产品子仓库模板 |
+| [tools/](tools/) | `new-product.sh` 新开一期；`products.sh` 生成上面的产品目录 |
+| [docs/](docs/) | 仓库设计、系列介绍 PDF |
+| [products/](products/) | 各期产品子仓库 |
 
 ## 短片依赖
 
 ```sh
 npx skills add alchaincyf/huashu-art-motion
 uv run --with playwright playwright install chromium      # 另需 uv、ffmpeg
-motion/sync.sh episodes/01-robot-vacuum                    # 接上引擎，打印渲染与门禁命令
+motion/sync.sh products/robot-vacuum/films/60s             # 接上引擎，打印渲染与门禁命令
 ```

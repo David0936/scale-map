@@ -1,6 +1,6 @@
 # Scale Map 镜头表模板
 
-Copy the block below to `episodes/<nn-slug>/镜头表.md`. The three lock lines and the table follow huashu-art-motion's format, so `storyboard_lint.py` can check them. Scale Map adds four things: the 论点 line, the frame role on each shot, an ad slot marker, and an evidence ledger that every on-screen number must appear in.
+Copy the block below to `products/<slug>/films/<id>/镜头表.md`. The three lock lines and the table follow huashu-art-motion's format, so `storyboard_lint.py` can check them. Scale Map adds four things: the 论点 line, the frame role on each shot, an ad slot marker, and an evidence ledger that every on-screen number must appear in.
 
 ```markdown
 # 产品蒸馏 EP<nn>｜<产品> · <时长> 秒镜头表
@@ -26,4 +26,4 @@ Copy the block below to `episodes/<nn-slug>/镜头表.md`. The three lock lines 
 
 The frame role prefix (`HOOK：`, `BEFORE：` …) is optional inside the 物 column. Leave it out if it pushes a cell past readability; the lint ignores it either way.
 
-Lint: `uv run <huashu>/scripts/storyboard_lint.py episodes/<nn-slug>/镜头表.md`. Do not write code until it is green. See `episodes/01-robot-vacuum/镜头表.md` for a complete example.
+Lint: `uv run <huashu>/scripts/storyboard_lint.py products/<slug>/films/<id>/镜头表.md`. Do not write code until it is green. See `products/robot-vacuum/films/60s/镜头表.md` for a complete example.

@@ -88,7 +88,7 @@ Read [references/film-pipeline.md](references/film-pipeline.md) before writing a
 2. **Lint.** Run huashu's `storyboard_lint.py` until green. No code before green.
 3. **Three directions.** Render one beat in three media directions with three different compositions and let the user choose. Choosing a style is never skipped, even when the user has named one.
 4. **One style.** The default is a single style for the whole film: contemporary flat illustration with print grain and the shared six-color palette. Show era through objects, architecture and on-screen captions rather than by changing the medium. A media relay (see media-relay.md) is opt-in for a flagship episode only.
-5. **Build.** One scene file per medium in `episodes/<nn-slug>/scenes/`, built on `motion/kit/scale_map_kit.js`. Run `motion/sync.sh episodes/<nn-slug>` to wire it into the engine. Check stills per scene before rendering the whole film.
+5. **Build.** Each product lives in its own sub-repo mounted at `products/<slug>/` (create it with `tools/new-product.sh <slug> <name>`; see `docs/设计.md`). One scene file per segment in `products/<slug>/films/<id>/scenes/`, built on `motion/kit/scale_map_kit.js`, plus a code-synthesized `score.py`. Run `motion/sync.sh products/<slug>/films/<id>` to wire it into the engine. Keep `product.yaml` current: thesis, question, status, ad slot. Check stills per scene before rendering the whole film.
 6. **Gates.** Run huashu's `qa.py`, then an independent review agent that has seen only the finished film, then `deliver.py`. A red gate means no delivery.
 
 ## Quality gate

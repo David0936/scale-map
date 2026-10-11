@@ -1,7 +1,3 @@
-# 剧集的引擎工作副本与渲染产物（可重建，不进仓库）
-episodes/*/.work/
-episodes/*/渲染/
-episodes/*/静帧/
-episodes/*/qa/
-episodes/*/output/
+# 产品子仓库在各自仓库里忽略渲染产物；这里只忽略系统文件
 .DS_Store
+README.md.new

@@ -1,0 +1,4 @@
+[submodule "products/robot-vacuum"]
+	path = products/robot-vacuum
+	url = https://github.com/David0936/product-art-robot-vacuum.git
+	branch = main

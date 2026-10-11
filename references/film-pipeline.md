@@ -46,7 +46,7 @@ See [media-relay.md](media-relay.md). The rules in short:
 
 ### The three-direction gate
 
-Before production, render **one story beat** (the most visual turning point works best) in three directions, each with a different composition, not just different colors. The user chooses. EP01's three directions were a media relay (street-side engraving), one-style patent plates (object close-up with numbered callouts), and isometric flat (cutaway diorama). The user chose a four-media relay as a compromise. See `episodes/01-robot-vacuum/previews/style_directions.jpg`.
+Before production, render **one story beat** (the most visual turning point works best) in three directions, each with a different composition, not just different colors. The user chooses. EP01's three directions were a media relay (street-side engraving), one-style patent plates (object close-up with numbered callouts), and isometric flat (cutaway diorama). The user chose a four-media relay as a compromise. See `products/robot-vacuum/films/60s/previews/style_directions.jpg`.
 
 ## 4. David and the lobster in motion
 
@@ -57,15 +57,19 @@ Before production, render **one story beat** (the most visual turning point work
 ## 5. Build
 
 ```
-episodes/<nn-slug>/
-  镜头表.md            storyboard + evidence ledger (lint this)
-  eras_<film>.js       segment list: one segment per medium, with dur and transition
-  scenes/<id>.js       one file per medium: SCENES['<id>'] = { draw(c, lt, t) }, shots via SM.shots
-  previews/            contact sheets kept in the repo
-  .work/ 渲染/ 静帧/ qa/ output/   rebuilt by motion/sync.sh and the renderer (git-ignored)
+products/<slug>/                 one product = one sub-repo (product-art-<slug>)
+  product.yaml                   thesis, question, status, ad slot, films
+  films/<id>/                    one cut, e.g. films/60s
+    镜头表.md            storyboard + evidence ledger (lint this)
+    eras_<film>.js       segment list with dur and transition
+    scenes/<id>.js       one file per segment: SCENES['<id>'] = { draw(c, lt, t) }, shots via SM.shots
+    score.py             code-synthesized score
+    previews/            contact sheets kept in the repo
+    .work/ 渲染/ 静帧/ qa/ output/   rebuilt by motion/sync.sh and the renderer (git-ignored)
+  publish/                       delivered videos
 ```
 
-`motion/sync.sh episodes/<nn-slug>` copies the huashu engine into `.work/engine` once, then syncs the kit, scenes and manifest, and prints the render and gate commands.
+`motion/sync.sh products/<slug>/films/<id>` copies the huashu engine into `.work/engine` once, then syncs the kit, scenes and manifest, and prints the render and gate commands.
 
 ### The kit (`motion/kit/scale_map_kit.js`, `window.SM`)
 

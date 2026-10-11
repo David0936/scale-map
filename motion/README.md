@@ -5,8 +5,8 @@ Scale Map 的动画层，跑在 [huashu-art-motion](https://github.com/alchaincy
 | 文件 | 作用 |
 |---|---|
 | `kit/scale_map_kit.js` | 共用工具，挂在 `window.SM`：脉冲镜头（带世界边界）、镜内硬切、线条沸腾缓存、铜版画排线套件、当代扁平零件 |
-| `sync.sh` | 把一集接上引擎：第一次复制引擎到 `<剧集>/.work/engine`，之后同步 kit、scenes、`eras_<片名>.js`，并打印渲染和门禁命令 |
+| `sync.sh` | 把一支片子接上引擎：第一次复制引擎到 `<片子目录>/.work/engine`，之后同步 kit、scenes、`eras_<片名>.js`，并打印渲染和门禁命令 |
 
 依赖：先装 huashu-art-motion（`npx skills add alchaincyf/huashu-art-motion`），再装 uv、ffmpeg 和 Playwright Chromium（`uv run --with playwright playwright install chromium`）。
 
-新开一集：建 `episodes/<nn-slug>/`，写 `镜头表.md`（模板见 `references/storyboard-template.md`）、`eras_<片名>.js` 和 `scenes/`，然后 `motion/sync.sh episodes/<nn-slug>`。EP01 是完整的参考实现。
+新开一期：`tools/new-product.sh <slug> <中文名>` 建产品子仓库，在它的 `films/60s/` 里写 `镜头表.md`（模板见 `references/storyboard-template.md`）、`eras_<片名>.js`、`scenes/` 和 `score.py`，然后 `motion/sync.sh products/<slug>/films/60s`。EP01（`products/robot-vacuum`）是完整的参考实现，它的 `score.py` 可以复制改写。
