@@ -46,3 +46,25 @@ List sources beside the claims they support. Mark each claim as verified fact, i
 
 State which checks passed, which decisions remain provisional, whether a David identity reference was actually available, and what must be reviewed before image generation or publication.
 
+
+## Film package (when the output is a film)
+
+Sections 1–3 and 6–7 stay as written; the six-frame storyboard is still the story spine. Section 4 (image briefs) is replaced by 4a–4c, and section 5 gains two items.
+
+### 4a. 镜头表
+
+`episodes/<nn-slug>/镜头表.md`, written from [storyboard-template.md](storyboard-template.md): the three lock lines, the thesis line, the ad slot, 12–16 shots tagged with their frame roles, and an evidence ledger for every on-screen year, price and number. It must lint green.
+
+### 4b. Style directions
+
+One beat rendered in three directions with different compositions, delivered as one contact sheet, plus the user's recorded choice.
+
+### 4c. Film
+
+- `eras_<film>.js` and `scenes/*.js`, synced and rendered through `motion/sync.sh`.
+- A contact sheet of stills for each segment in `previews/`.
+- The finished film from `deliver.py`, plus its `交付说明.md` with the gate results, the independent review, and a one-line reason for each yellow light.
+
+### 5 (film additions). Publishing copy
+
+Add the cover frame (a still from the HOOK or turning-point shot) and the timestamp of the ad slot.

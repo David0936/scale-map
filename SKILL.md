@@ -1,6 +1,6 @@
 ---
 name: scale-map
-description: Research and design historically grounded visual narratives that place a product on the scale of human desire, time, people, space, form, and future. Use when the user asks to distill a product with Scale Map or create its research, carousel story, art direction, image prompts, or distribution package.
+description: Research and design historically grounded visual narratives that place a product on the scale of human desire, time, people, space, form, and future — as a carousel of still frames or as a 60–90 second animated film rendered in code. Use when the user asks to distill a product with Scale Map (产品蒸馏) or create its research, carousel story, art direction, image prompts, storyboard (镜头表), animated short, or distribution package.
 ---
 
 # Scale Map
@@ -28,13 +28,22 @@ Research all six layers before choosing pages or visuals:
 
 Do not force equal screen time for every layer. The map is the research model; the final story uses only the strongest causal spine.
 
-## Work in four stages
+## Choose the output
+
+Ask once, or infer from the request:
+
+- **Carousel** — 5–8 still frames (default 6) with image briefs for a generation model. Stages 1–4.
+- **Film** — a 60–90 second animated short drawn entirely in code. Stages 1–3, then stage 5 instead of stage 4's image briefs. Requires the [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) skill (`npx skills add alchaincyf/huashu-art-motion`) plus uv, ffmpeg and Playwright Chromium.
+
+Both share the same research, thesis, six-frame story, evidence ledger and style bible. A film is the carousel's causal spine played in time, not a different story.
+
+## Work in five stages
 
 ### 1. Research
 
 Start from the human behavior and spatial condition, not the launch date of the modern device. Build a source-backed chain from before the category existed to current use. Separate verified facts, reasonable interpretation, and speculation. Do not invent named people, dates, patents, quotations, artworks, or product claims.
 
-Record sources and unresolved claims as the research proceeds. Prefer primary and authoritative sources for historical facts and current product claims.
+Record sources and unresolved claims as the research proceeds. Prefer primary and authoritative sources for historical facts and current product claims. Anything describing the present (current prices, who owns a company, the newest models) must be looked up, not recalled.
 
 ### 2. Distill
 
@@ -63,13 +72,24 @@ Add or split frames when the argument requires it. **Each frame carries exactly 
 
 End with the disappearance question, not “the future version will be more powerful.”
 
-### 4. Art direction and generation
+### 4. Art direction and generation (carousel)
 
 Let the visual language evolve with time: classical painting; industrial print, patent, or engineering drawing; modernist architecture and graphic design; consumer advertising and product photography; digital interfaces and contemporary photography; then AI surreal photography for the future.
 
 Treat artwork and architecture as evidence-bearing narrative devices. Write each visual brief around the claim, spatial logic, period evidence, product continuity, and intended viewer inference before adding stylistic detail.
 
 Read [references/style-bible.md](references/style-bible.md) before directing David, the lobster, historical media, or image continuity. Use [references/deliverable.md](references/deliverable.md) for the required output package.
+
+### 5. Film (code-drawn animation)
+
+Read [references/film-pipeline.md](references/film-pipeline.md) before writing a storyboard, and [references/media-relay.md](references/media-relay.md) before choosing media. Then read huashu-art-motion's `SKILL.md`; its gates apply in full. In short:
+
+1. **Story → 镜头表.** Expand the 6 frames into 12–16 shots of 2–6 s each using [references/storyboard-template.md](references/storyboard-template.md). Every shot names a concrete object and its action. The first shot is an object doing something, with no text; the last shot is the product doing something, with the disappearance question written on an object in the scene.
+2. **Lint.** Run huashu's `storyboard_lint.py` until green. No code before green.
+3. **Three directions.** Render one beat in three media directions with three different compositions and let the user choose. Choosing a style is never skipped, even when the user has named one.
+4. **Media relay.** Use at most four media per film, switch only at era boundaries, and enter each medium with its own signature transition. One six-color palette threads through every medium.
+5. **Build.** One scene file per medium in `episodes/<nn-slug>/scenes/`, built on `motion/kit/scale_map_kit.js`. Run `motion/sync.sh episodes/<nn-slug>` to wire it into the engine. Check stills per scene before rendering the whole film.
+6. **Gates.** Run huashu's `qa.py`, then an independent review agent that has seen only the finished film, then `deliver.py`. A red gate means no delivery.
 
 ## Quality gate
 
@@ -84,3 +104,10 @@ Before delivery, verify:
 - The final frame tests whether the object disappears when the need is solved.
 - Image prompts preserve the product's essential identity and do not contradict the research.
 
+For a film, also verify:
+
+- Every year, price and number on screen appears in the evidence ledger with its source.
+- The 镜头表 lints green, and the film passes `qa.py`, the independent review and `deliver.py`.
+- No more than four media, each switch on an era boundary, and one palette across all of them.
+- The subject fills at least half the frame in every shot, and no shot shows empty canvas at its edges.
+- People appear only as backs, silhouettes or hands. Code never draws faces.

@@ -1,0 +1,7 @@
+# 剧集的引擎工作副本与渲染产物（可重建，不进仓库）
+episodes/*/.work/
+episodes/*/渲染/
+episodes/*/静帧/
+episodes/*/qa/
+episodes/*/output/
+.DS_Store

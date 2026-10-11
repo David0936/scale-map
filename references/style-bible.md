@@ -53,3 +53,13 @@ Do not imitate a living artist or use an artwork merely because it is recognizab
 - Use continuity deliberately: repeated doorway, floor plane, camera angle, or object silhouette can connect eras without flattening their visual differences.
 - Do not turn every frame into a crowded infographic. Use diagrams only when relationships cannot be shown more clearly through a scene.
 
+
+## In motion (film)
+
+The same rules hold when the frames move; [film-pipeline.md](film-pipeline.md) has the full pipeline.
+
+- **David** appears in at most two segments, as a back, a silhouette or one figure inside a crowd. Code-drawn animation does not draw faces; a recognizable David needs AI-generated character frames built from his identity reference, otherwise keep him from behind.
+- **The lobster** hides at most once per medium and may twitch its antennae. It is never in the hook and never in the final question shot, so it does not compete with the thesis.
+- **Hands** carry the labor story across eras: the hand pushing a sweeper, the hand on an upright vacuum's handle.
+- **Media relay**: a medium changes only at an era boundary, at most four media per film, one shared six-color palette. See [media-relay.md](media-relay.md).
+- **Continuity anchors** across media: the cleaning object itself, the floor line at the same height, and the opening room returning at the end.

@@ -1,5 +1,4 @@
 interface:
   display_name: "Scale Map"
-  short_description: "把产品放回人类文明尺度中研究与视觉化"
+  short_description: "把产品放回人类文明尺度中研究与视觉化：六张图文，或代码绘制的时代媒介接力短片"
   default_prompt: "Use $scale-map to distill the washing machine into a source-backed visual narrative."
-
