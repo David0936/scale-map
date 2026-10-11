@@ -171,4 +171,28 @@ EP.broomFlat = (g, x, y, ang) => {
 };
 // 全画面颗粒（扁平插画的印刷颗粒），缓存 3 份轮换
 EP.grain = (c, t, alpha = 0.07) => { const g = EP.cache('grain#' + EP.boil(t, 12, 3), (gg) => { const r = rng(77 + EP.boil(t, 12, 3)); gg.fillStyle = `rgba(40,25,10,${alpha})`; for (let i = 0; i < 90000; i++) gg.fillRect(r() * W, r() * H, 2, 2); }); c.drawImage(g, 0, 0); };
+// ---------- 扁平版的图注、背影、龙虾（单一扁平画风用）----------
+EP.flatCaption = (c, x, y, w, year, place, zh, a = 1) => {
+  if (a <= 0) return; const F = EP.F; c.save(); c.globalAlpha = a;
+  EP.rr(c, x, y, w, 150, 22, F.coral);
+  EP.text(c, year, x + 30, y + 78, '72px "Poppins-800"', F.cream); if (place) EP.text(c, place, x + 230, y + 74, '30px "Poppins-600"', F.cream);
+  EP.text(c, zh, x + 30, y + 126, '36px "PuHui-Bold"', F.cream); c.restore();
+};
+EP.flatOnlooker = (g, x, y, h, kind, seed, s = 1, sway = 0) => {
+  const F = EP.F, cols = [F.green, F.coral, F.mustard, F.greenLt, F.grey]; g.save(); g.translate(x, y); g.rotate(sway); g.scale(s, s);
+  g.fillStyle = F.ink; g.fillRect(-26, -h * 0.25, 20, h * 0.25); g.fillRect(6, -h * 0.25, 20, h * 0.25);
+  g.fillStyle = cols[seed % cols.length]; g.beginPath();
+  if (kind === 'dress') { g.moveTo(-26, -h * 0.66); g.lineTo(26, -h * 0.66); g.lineTo(62, 0); g.lineTo(-62, 0); } else { g.moveTo(-34, -h * 0.66); g.lineTo(34, -h * 0.66); g.lineTo(40, -h * 0.2); g.lineTo(-40, -h * 0.2); }
+  g.closePath(); g.fill();
+  g.fillStyle = '#e3b18e'; g.beginPath(); g.arc(0, -h * 0.76, 18, 0, 7); g.fill();
+  g.fillStyle = '#3a2e22'; g.beginPath(); g.arc(0, -h * 0.78, 18, Math.PI * 0.9, Math.PI * 2.1); g.fill();
+  if (kind === 'bowler' || kind === 'cap' || kind === 'dress') { g.fillStyle = F.ink; g.beginPath(); g.ellipse(0, -h * 0.84, kind === 'dress' ? 34 : 24, 7, 0, 0, 7); g.fill(); g.beginPath(); g.arc(0, -h * 0.84, 15, Math.PI, 0); g.fill(); }
+  g.restore();
+};
+EP.flatLobster = (g, x, y, rot = -0.25, s = 0.9, wave = 0) => {
+  const F = EP.F; g.save(); g.translate(x, y); g.rotate(rot); g.scale(s, s); g.fillStyle = F.coral;
+  g.beginPath(); g.ellipse(0, 0, 26, 11, 0, 0, 7); g.fill(); for (let k = 0; k < 4; k++) { g.beginPath(); g.ellipse(-28 - k * 9, 0, 6, 8 - k, 0, 0, 7); g.fill(); }
+  [[58, -14], [60, 12]].forEach(([cx, cy]) => { g.beginPath(); g.ellipse(cx, cy, 11, 7, cy < 0 ? -0.4 : 0.4, 0, 7); g.fill(); });
+  g.strokeStyle = F.coral; g.lineWidth = 3; g.beginPath(); g.moveTo(20, -5); g.lineTo(52, -14); g.moveTo(20, 5); g.lineTo(52, 12); g.moveTo(24, -2); g.quadraticCurveTo(70, -50 + Math.sin(wave) * 6, 110, -40); g.stroke(); g.restore();
+};
 })();

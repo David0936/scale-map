@@ -5,18 +5,18 @@
 //  镜 10（13–17）一台裂成 4、16、64 台，铺满海报地板（快推）。
 SCENES['e4_poster'] = (() => {
   const { clamp, lerp, rng, ss } = U, W = 1920, H = 1080;
-  const C = { paper: '#f3e6cc', ink: '#2a2118', coral: '#c8402e', mustard: '#e8a93a', green: '#2f5d50', cream: '#fbf4e6', tan: '#e2c99c', grey: '#8f8a80' };
-  const MIS = 5;   // 套色错位
-  const dots = (g, path, col, cell = 12, size = (x, y) => 0.35, box = [0, 0, W, H]) => { g.save(); if (path) g.clip(path); g.fillStyle = col; for (let y = box[1]; y < box[3]; y += cell) for (let x = box[0] + ((y / cell) % 2) * cell / 2; x < box[2]; x += cell) { const r = size(x, y) * cell * 0.5; if (r > 0.3) { g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); } } g.restore(); };
+  const C = { paper: '#f6efe2', ink: '#2a2118', coral: '#c8402e', mustard: '#e8a93a', green: '#2f5d50', cream: '#fbf4e6', tan: '#e2c99c', grey: '#8f8a80' };
+  const MIS = 0;   // 套色错位
+  const dots = () => {}; const _dots = (g, path, col, cell = 12, size = (x, y) => 0.35, box = [0, 0, W, H]) => { g.save(); if (path) g.clip(path); g.fillStyle = col; for (let y = box[1]; y < box[3]; y += cell) for (let x = box[0] + ((y / cell) % 2) * cell / 2; x < box[2]; x += cell) { const r = size(x, y) * cell * 0.5; if (r > 0.3) { g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); } } g.restore(); };
   // 填色层（往右下错开 MIS）＋墨线层：海报印刷的味道
-  const fillInk = (g, path, col, lw = 5) => { g.save(); g.translate(MIS, MIS); g.fillStyle = col; g.fill(path); g.restore(); g.strokeStyle = C.ink; g.lineWidth = lw; g.lineJoin = 'round'; g.stroke(path); };
+  const fillInk = (g, path, col) => { g.fillStyle = col; g.fill(path); };
   const P = EP.P;
   const posterPaper = () => EP.cache('poster_paper', (g) => {
     g.fillStyle = C.paper; g.fillRect(0, 0, W, H);
-    const r = rng(3); for (let i = 0; i < 30000; i++) { g.fillStyle = `rgba(120,90,50,${0.03 + r() * 0.07})`; g.fillRect(r() * W, r() * H, 1.5, 1.5); }
-    g.strokeStyle = 'rgba(120,90,50,.18)'; g.lineWidth = 2; g.beginPath(); g.moveTo(W / 2, 0); g.lineTo(W / 2, H); g.moveTo(0, H / 2); g.lineTo(W, H / 2); g.stroke();   // 折痕
+    const r = rng(3); for (let i = 0; i < 0; i++) { g.fillStyle = `rgba(120,90,50,${0.03 + r() * 0.07})`; g.fillRect(r() * W, r() * H, 1.5, 1.5); }
+    
   });
-  const frame = (c) => { c.save(); c.strokeStyle = C.ink; c.lineWidth = 8; c.strokeRect(40, 40, W - 80, H - 80); c.lineWidth = 2; c.strokeRect(56, 56, W - 112, H - 112); c.restore(); };
+  const frame = (c) => { EP.grain(c, 0); }; const _frame = (c) => { c.save(); c.strokeStyle = C.ink; c.lineWidth = 8; c.strokeRect(40, 40, W - 80, H - 80); c.lineWidth = 2; c.strokeRect(56, 56, W - 112, H - 112); c.restore(); };
   const headline = (c, s, x, y, size, col = C.cream, bg = C.coral, a = 1) => { if (a <= 0) return; c.save(); c.globalAlpha = a; c.font = `${size}px "PuHui-Black"`; const w = c.measureText(s).width; c.fillStyle = bg; c.save(); c.translate(x - 30, y - size * 0.95); c.rotate(-0.02); c.fillRect(0, 0, w + 60, size * 1.3); c.restore(); c.fillStyle = C.ink; c.fillText(s, x + 4, y + 4); c.fillStyle = col; c.fillText(s, x, y); c.restore(); };
   const sparkle = (c, x, y, s, col = C.cream) => { c.save(); c.translate(x, y); c.scale(s, s); c.fillStyle = col; c.beginPath(); for (let k = 0; k < 8; k++) { const r = k % 2 ? 6 : 30, a = k / 8 * 6.283; c.lineTo(Math.cos(a) * r, Math.sin(a) * r); } c.closePath(); c.fill(); c.strokeStyle = C.ink; c.lineWidth = 2.5; c.stroke(); c.restore(); };
 

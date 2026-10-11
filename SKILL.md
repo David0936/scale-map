@@ -87,7 +87,7 @@ Read [references/film-pipeline.md](references/film-pipeline.md) before writing a
 1. **Story → 镜头表.** Expand the 6 frames into 12–16 shots of 2–6 s each using [references/storyboard-template.md](references/storyboard-template.md). Every shot names a concrete object and its action. The first shot is an object doing something, with no text; the last shot is the product doing something, with the disappearance question written on an object in the scene.
 2. **Lint.** Run huashu's `storyboard_lint.py` until green. No code before green.
 3. **Three directions.** Render one beat in three media directions with three different compositions and let the user choose. Choosing a style is never skipped, even when the user has named one.
-4. **Media relay.** Use at most four media per film, switch only at era boundaries, and enter each medium with its own signature transition. One six-color palette threads through every medium.
+4. **One style.** The default is a single style for the whole film: contemporary flat illustration with print grain and the shared six-color palette. Show era through objects, architecture and on-screen captions rather than by changing the medium. A media relay (see media-relay.md) is opt-in for a flagship episode only.
 5. **Build.** One scene file per medium in `episodes/<nn-slug>/scenes/`, built on `motion/kit/scale_map_kit.js`. Run `motion/sync.sh episodes/<nn-slug>` to wire it into the engine. Check stills per scene before rendering the whole film.
 6. **Gates.** Run huashu's `qa.py`, then an independent review agent that has seen only the finished film, then `deliver.py`. A red gate means no delivery.
 
@@ -108,6 +108,6 @@ For a film, also verify:
 
 - Every year, price and number on screen appears in the evidence ledger with its source.
 - The 镜头表 lints green, and the film passes `qa.py`, the independent review and `deliver.py`.
-- No more than four media, each switch on an era boundary, and one palette across all of them.
+- One style and one palette for the whole film, or, for an opt-in relay, no more than four media with every switch on an era boundary.
 - The subject fills at least half the frame in every shot, and no shot shows empty canvas at its edges.
 - People appear only as backs, silhouettes or hands. Code never draws faces.

@@ -1,5 +1,7 @@
 # Media Relay
 
+> **Opt-in only.** The series default is a single style: contemporary flat illustration with print grain and one six-color palette. EP01 tried the four-media relay below, then re-rendered in a single flat style at David's request. Use a relay only when the user asks for it.
+
 The Style Bible says the visual language evolves with time. For a film this becomes a **relay**: each era is drawn in its own medium, and the baton passes at era boundaries. This table maps each era to a code renderer and an entry transition from huashu-art-motion.
 
 ## Default relay for household products (four media)

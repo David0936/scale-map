@@ -2,17 +2,14 @@
 // 开场 0.45s 各笔按顺序写出；母题：树上落叶、扫帚来回、墨晕外扩。人只出背影，脸藏在斗笠下。
 SCENES['e2_ink'] = (() => {
   const { clamp, lerp, rng, ss } = U, P = PAINT, W = 1920, H = 1080, G = 880;
-  const brush = (c, pts, o) => P.brush(c, pts, o);
-  const paper = () => P.cached('ep_xuan', W, H, (g) => {
-    g.drawImage(P.texture('ep_xuan_t', '#efe6d0', { scale: 0.0025, amt: 9, grain: 7, seed: 5 }), 0, 0);
-    const r = rng(41); g.lineCap = 'round';
-    for (let i = 0; i < 2400; i++) { const x = r() * W, y = r() * H, a = r() * 6.28, l = 6 + r() * 24; g.strokeStyle = r() < 0.5 ? `rgba(150,125,90,${0.05 + r() * 0.08})` : `rgba(255,252,240,${0.12 + r() * 0.15})`; g.lineWidth = 0.6 + r() * 0.8; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
-    const vg = g.createRadialGradient(W / 2, H / 2, 500, W / 2, H / 2, 1250); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(120,90,50,.22)'); g.fillStyle = vg; g.fillRect(0, 0, W, H);
-  });
-  const blob = (c, x, y, r, a, blur = 8) => { c.save(); c.filter = `blur(${blur}px)`; c.fillStyle = `rgba(30,26,22,${a})`; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); c.restore(); };
+  const F = EP.F;
+  const brush = (c, pts, o = {}) => { const rev = o.reveal ?? 1; if (rev <= 0) return; const D = KIT.resample(KIT.densify(pts, 5), 4); const m = Math.max(2, Math.ceil(D.length * rev));
+    c.save(); c.strokeStyle = (o.tone ?? 0.85) > 0.55 ? F.ink : 'rgba(42,33,24,.35)'; c.lineWidth = Math.max(3, (o.w || 10) * 0.7); c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); D.slice(0, m).forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1])); c.stroke(); c.restore(); };
+  const paper = () => EP.cache('flat_yard', (g) => { g.fillStyle = F.wall; g.fillRect(0, 0, W, H); g.fillStyle = F.wall2; g.fillRect(1100, 300, 900, 600); g.fillStyle = F.floor; g.fillRect(0, G, W, H - G); g.fillStyle = F.floorDk; for (let y = G + 50; y < H; y += 62) g.fillRect(0, y, W, 4); });
+  const blob = (c, x, y, r, a, blur = 8) => { c.save(); c.fillStyle = `rgba(185,140,90,${Math.min(0.9, a * 3)})`; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); c.restore(); };
   // 远景：淡墨院墙＋瓦檐＋一枝树
   const backdrop = (c, rev) => {
-    blob(c, 1500, 520, 260, 0.06, 40); blob(c, 300, 600, 220, 0.05, 40);
+    
     brush(c, [[1120, 330], [1500, 300], [1980, 320]], { w: 34, tone: 0.35, dry: 0.6, seed: 11, reveal: rev });
     for (let k = 0; k < 9; k++) brush(c, [[1150 + k * 95, 338], [1170 + k * 95, 372]], { w: 14, tone: 0.3, dry: 0.4, seed: 20 + k, reveal: rev });
     brush(c, [[1130, 390], [1500, 392], [1960, 386]], { w: 6, tone: 0.25, dry: 0.7, seed: 31, reveal: rev });
@@ -21,7 +18,7 @@ SCENES['e2_ink'] = (() => {
     // 地面：一道淡墨横抹
     brush(c, [[-40, G + 6], [700, G], [1500, G + 8], [1980, G + 2]], { w: 18, tone: 0.28, dry: 0.75, seed: 51, reveal: rev });
   };
-  const leafAt = (c, x, y, a, s = 1) => { c.save(); c.translate(x, y); c.rotate(a); c.fillStyle = 'rgba(40,32,24,.78)'; c.beginPath(); c.moveTo(-14 * s, 0); c.quadraticCurveTo(0, -9 * s, 14 * s, 0); c.quadraticCurveTo(0, 9 * s, -14 * s, 0); c.fill(); c.restore(); };
+  const leafAt = (c, x, y, a, s = 1) => { c.save(); c.translate(x, y); c.rotate(a); c.fillStyle = F.greenLt; c.beginPath(); c.moveTo(-14 * s, 0); c.quadraticCurveTo(0, -9 * s, 14 * s, 0); c.quadraticCurveTo(0, 9 * s, -14 * s, 0); c.fill(); c.restore(); };
   const LEAVES = (() => { const r = rng(61), a = []; for (let i = 0; i < 34; i++) a.push([200 + r() * 1300, G - 4 - r() * 14, r() * 6.28, 0.7 + r() * 0.6]); return a; })();
   // 弯腰扫地的人：背影，朝左扫。bend 0..1，sw 扫帚摆相位
   const sweeper = (c, bend, sw, rev, sd) => {
@@ -29,7 +26,7 @@ SCENES['e2_ink'] = (() => {
     const sh = [hip[0] - Math.sin(a) * 250, hip[1] - Math.cos(a) * 250];
     const head = [sh[0] - Math.sin(a + 0.25) * 70, sh[1] - Math.cos(a + 0.25) * 70];
     // 衣袍：淡墨晕（赭石调）
-    c.save(); c.filter = 'blur(3px)'; c.fillStyle = 'rgba(120,96,70,.38)'; c.beginPath();
+    c.save(); c.fillStyle = F.green; c.beginPath();
     c.moveTo(sh[0] - 70, sh[1] - 10); c.quadraticCurveTo(sh[0] + 40, sh[1] - 50, sh[0] + 80, sh[1] + 10); c.lineTo(hip[0] + 110, hip[1] + 40); c.lineTo(hip[0] + 90, 820); c.lineTo(hip[0] - 120, 820); c.lineTo(hip[0] - 90, hip[1] + 40); c.closePath(); c.fill(); c.restore();
     // 衣纹：浓淡几笔
     brush(c, [[sh[0] - 70, sh[1] - 6], [sh[0] + 20, sh[1] - 40], [sh[0] + 84, sh[1] + 12], [hip[0] + 100, hip[1] + 40]], { w: 12, tone: 0.85, dry: 0.4, seed: sd + 1, reveal: rev });
@@ -43,7 +40,7 @@ SCENES['e2_ink'] = (() => {
     brush(c, [[hip[0] - 100, G - 2], [hip[0] - 60, G - 4]], { w: 14, tone: 0.95, dry: 0.2, seed: sd + 8, reveal: rev });
     brush(c, [[hip[0] + 40, G - 4], [hip[0] + 84, G - 2]], { w: 14, tone: 0.95, dry: 0.2, seed: sd + 9, reveal: rev });
     // 斗笠：一顶压得很低的笠，脸看不见
-    c.save(); c.filter = 'blur(2px)'; c.fillStyle = 'rgba(160,130,80,.5)'; c.beginPath(); c.ellipse(head[0], head[1] + 6, 104, 34, -a * 0.5, 0, 7); c.fill(); c.restore();
+    c.save(); c.fillStyle = F.mustard; c.beginPath(); c.ellipse(head[0], head[1] + 6, 104, 34, -a * 0.5, 0, 7); c.fill(); c.restore();
     brush(c, [[head[0] - 108, head[1] + 22], [head[0] - 10, head[1] - 46], [head[0] + 104, head[1] + 2]], { w: 13, tone: 0.9, dry: 0.35, seed: sd + 10, reveal: rev });
     brush(c, [[head[0] - 106, head[1] + 24], [head[0], head[1] + 34], [head[0] + 104, head[1] + 4]], { w: 6, tone: 0.75, dry: 0.5, seed: sd + 11, reveal: rev });
     // 手与扫帚：双手握杆，帚头着地来回扫
@@ -74,7 +71,7 @@ SCENES['e2_ink'] = (() => {
       for (let k = 0; k < 6; k++) { const q = ((st * 1.7 + k / 6) % 1); blob(c, gp[0] - 30 - q * 90, G - 20 - q * 60, 20 + q * 30, 0.12 * (1 - q), 10); }
     });
     // 题款：竖排「弯了几千年」＋朱印，写在纸上（不跟镜头）
-    const ta = ss(0.6, 1.0, lt); if (ta > 0) { c.save(); c.globalAlpha = ta; c.font = '64px "LXGWWenKai-500"'; c.fillStyle = 'rgba(20,16,12,.9)'; c.textAlign = 'center'; '弯了几千年'.split('').forEach((ch, i) => c.fillText(ch, 1780, 200 + i * 78)); c.restore();
+    const ta = ss(0.6, 1.0, lt); if (ta > 0) { c.save(); c.globalAlpha = ta; c.font = '64px "PuHui-Black"'; c.fillStyle = F.ink; c.textAlign = 'center'; '弯了几千年'.split('').forEach((ch, i) => c.fillText(ch, 1780, 200 + i * 78)); c.restore();
       const q = ss(1.0, 1.15, lt); if (q > 0) { const s = 1.5 - 0.5 * q; c.save(); c.translate(1780, 640); c.scale(s, s); c.globalAlpha = Math.min(1, q * 1.5); c.fillStyle = '#c8402e'; c.fillRect(-34, -34, 68, 68); c.fillStyle = '#efe6d0'; c.font = '30px "LXGWWenKai-500"'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('扫', 0, -13); c.fillText('地', 0, 17); c.restore(); } }
   };
   // 镜 3：一团灰扬起、绕一圈、落回原地（快推）
@@ -99,5 +96,5 @@ SCENES['e2_ink'] = (() => {
       LEAVES.slice(0, 10).forEach(([x, y, a, s], i) => leafAt(c, 640 + i * 70, G - 6 - (i % 3) * 4, a, 1.3));
     });
   };
-  return { draw(c, lt, t) { EP.shots(c, lt, [[0, 4, shot2], [4, 8, shot3]]); } };
+  return { draw(c, lt, t) { EP.shots(c, lt, [[0, 4, shot2], [4, 8, shot3]]); EP.grain(c, t); } };
 })();
