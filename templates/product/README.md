@@ -3,7 +3,7 @@
 > 论点：（写一句）
 > 结尾问题：（写一句）
 
-[product-art](https://github.com/David0936/product-art) 系列的产品子仓库。方法和动画工具包在母仓库；这里只放这个产品的镜头表、证据账本、场景、配乐和成片。
+[scale-map](https://github.com/David0936/scale-map) 系列的产品子仓库。方法和动画工具包在母仓库；这里只放这个产品的镜头表、证据账本、场景、配乐和成片。
 
 | 路径 | 内容 |
 |---|---|
@@ -13,4 +13,4 @@
 | films/60s/score.py | 配乐（可从 EP01 复制改写） |
 | publish/ | 交付给平台的视频 |
 
-渲染：在母仓库里跑 `motion/sync.sh products/__SLUG__/films/60s`。完整步骤见母仓库的 [docs/教程.md](https://github.com/David0936/product-art/blob/main/docs/教程.md)。
+渲染：在母仓库里跑 `motion/sync.sh products/__SLUG__/films/60s`。完整步骤见母仓库的 [docs/教程.md](https://github.com/David0936/scale-map/blob/main/docs/教程.md)。

@@ -1,5 +1,5 @@
 # 产品清单：母仓库读这个文件生成产品目录。顶层字段一行一个，tools/products.sh 只认这种写法。
-slug: __SLUG__                  # 小写英文加连字符，也是子仓库名 product-art-__SLUG__ 的后半截
+slug: __SLUG__                  # 小写英文加连字符，也是子仓库名 scale-map-__SLUG__ 的后半截
 episode: __EP__                 # 系列里的第几期
 name: __NAME__
 name_en:

@@ -57,7 +57,7 @@ Before production, render **one story beat** (the most visual turning point work
 ## 5. Build
 
 ```
-products/<slug>/                 one product = one sub-repo (product-art-<slug>)
+products/<slug>/                 one product = one sub-repo (scale-map-<slug>)
   product.yaml                   thesis, question, status, ad slot, films
   films/<id>/                    one cut, e.g. films/60s
     镜头表.md            storyboard + evidence ledger (lint this)

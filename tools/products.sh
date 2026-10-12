@@ -21,7 +21,7 @@ table() {
   for y in "$HUB"/products/*/product.yaml; do
     [ -f "$y" ] || continue
     slug="$(field "$y" slug)"; ep="$(field "$y" episode)"
-    printf '| EP%02d | [%s](products/%s/) | %s | %s | `product-art-%s` |\n' \
+    printf '| EP%02d | [%s](products/%s/) | %s | %s | `scale-map-%s` |\n' \
       "$ep" "$(field "$y" name)" "$slug" "$(field "$y" question)" \
       "$(status_cn "$(field "$y" status)")" "$slug"
   done | sort

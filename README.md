@@ -22,7 +22,7 @@
 <!-- products:start -->
 | 期 | 产品 | 结尾问题 | 状态 | 子仓库 |
 |---|---|---|---|---|
-| EP01 | [扫地机器人](products/robot-vacuum/) | 地面自己会干净的那天，还需要扫地机吗？ | 预览已出 | `product-art-robot-vacuum` |
+| EP01 | [扫地机器人](products/robot-vacuum/) | 地面自己会干净的那天，还需要扫地机吗？ | 预览已出 | `scale-map-robot-vacuum` |
 <!-- products:end -->
 
 下一期：洗碗机，讲人类为了不洗碗折腾了多少年。
@@ -82,7 +82,7 @@ Scale Map 想走第四条路：画风统一，史实有出处，每一帧都能�
 
 ```sh
 # 1. 拉仓库（连同所有产品子仓库），装成 Skill
-git clone --recurse-submodules https://github.com/David0936/product-art.git ~/.claude/skills/scale-map
+git clone --recurse-submodules https://github.com/David0936/scale-map.git ~/.claude/skills/scale-map
 
 # 2. 装动画引擎和依赖（另需 uv、ffmpeg）
 npx skills add alchaincyf/huashu-art-motion
