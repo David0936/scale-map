@@ -13,4 +13,4 @@
 | films/60s/score.py | 配乐（可从 EP01 复制改写） |
 | publish/ | 交付给平台的视频 |
 
-渲染：在母仓库里跑 `motion/sync.sh products/__SLUG__/films/60s`。
+渲染：在母仓库里跑 `motion/sync.sh products/__SLUG__/films/60s`。完整步骤见母仓库的 [docs/教程.md](https://github.com/David0936/product-art/blob/main/docs/教程.md)。
