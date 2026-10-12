@@ -4,6 +4,7 @@
 //   缓存    SM.cache / SM.boiled —— 静态层按种子画 3 份、8fps 轮换＝线条沸腾（画一直是活的）
 //   铜版画  SM.paper / hatch / tone / ink / solid / hose / caption / onlooker / lobsterInk
 //   当代扁平 SM.F 色板 / robotSide / broomFlat / grain
+//   卡司    SM.npc / SM.egg / SM.sprite —— 你的 IP 和宠物，由 product.yaml 的 cast: 决定（references/cast.md）
 // 坑：镜头放大后视野会超出画好的世界，边上露黑——cam 的第三个参数传世界边界 [x0,y0,x1,y1]，自动把机位收回界内。
 (() => {
 const W = 1920, H = 1080, { clamp, lerp, rng, ss } = U;
@@ -194,5 +195,38 @@ EP.flatLobster = (g, x, y, rot = -0.25, s = 0.9, wave = 0) => {
   g.beginPath(); g.ellipse(0, 0, 26, 11, 0, 0, 7); g.fill(); for (let k = 0; k < 4; k++) { g.beginPath(); g.ellipse(-28 - k * 9, 0, 6, 8 - k, 0, 0, 7); g.fill(); }
   [[58, -14], [60, 12]].forEach(([cx, cy]) => { g.beginPath(); g.ellipse(cx, cy, 11, 7, cy < 0 ? -0.4 : 0.4, 0, 7); g.fill(); });
   g.strokeStyle = F.coral; g.lineWidth = 3; g.beginPath(); g.moveTo(20, -5); g.lineTo(52, -14); g.moveTo(20, 5); g.lineTo(52, 12); g.moveTo(24, -2); g.quadraticCurveTo(70, -50 + Math.sin(wave) * 6, 110, -40); g.stroke(); g.restore();
+};
+
+// ---------- 卡司：你的 IP（叙事 NPC）和宠物（彩蛋）----------
+// SM.CAST 由 motion/sync.sh 按 product.yaml 的 cast: 生成（帧库也由它复制进引擎）；规则见 references/cast.md。
+// 场景里不要写死某个人或某只宠物，统一用 SM.npc / SM.egg，换卡司不用改场景代码。
+EP.castName = slot => (EP.CAST && EP.CAST[slot] && EP.CAST[slot].name) || '';
+EP.route = slot => (EP.CAST && EP.CAST[slot] && EP.CAST[slot].route) || (slot === 'npc' ? 'back-only' : 'none');
+// 帧库换帧：floor(t*fps)%帧数，脚底锚点落在 (x, y)，h = 画面里的站立身高。o: {face: 1|-1, fps: 9, alpha: 1, frame: 固定第几帧}
+EP.sprite = (g, key, t, x, y, h, o = {}) => {
+  const C = EP.CAST, lib = C && C.frames && C.frames[key];
+  if (!lib) throw new Error(`卡司「${C ? C.id : '未加载'}」没有帧库 ${key}（看 tools/cast.sh check）`);
+  const n = lib.frames.length, i = o.frame != null ? o.frame % n : Math.floor(t * (o.fps || 9)) % n, f = lib.frames[i];
+  const im = window.IMG[`scale_map/cast/${C.id}/${key}/${f.file}`], s = h / lib.ref_h;
+  g.save(); g.globalAlpha *= o.alpha == null ? 1 : o.alpha; g.translate(x, y); g.scale(o.face === -1 ? -s : s, s);
+  g.drawImage(im, -f.ax, -f.ay, f.w, f.h); g.restore();
+};
+// 叙事 NPC：卡司有帧库就贴帧库并返回 true；走「只出手和背影」或不设时返回 false，场景自己画背影或跳过。
+//   if (!SM.npc(c, 'walk', st, 1075, GR, 250)) SM.flatOnlooker(c, 1075, GR, 250, 'cap', 604);
+EP.npc = (g, action, t, x, y, h, o = {}) => {
+  if (EP.route('npc') !== 'frames') return false;
+  EP.sprite(g, action, t, x, y, h, o); return true;
+};
+// 彩蛋：style 是这段的画风键（flat / engraving / …，对应 cast.yaml 的 egg.draw）。
+//   代码画：调 SM[draw[style]](g, x, y, rot, s, wave)；帧库：贴 o.action（默认第一个帧库）；不设：什么都不画。
+EP.egg = (g, style, x, y, o = {}) => {
+  const r = EP.route('egg'), E = EP.CAST && EP.CAST.egg;
+  if (r === 'code') {
+    const draw = (E && E.draw) || {}, fn = EP[draw[style] || Object.values(draw).find(Boolean)];
+    if (!fn) throw new Error(`彩蛋「${EP.castName('egg')}」没有画风 ${style} 的画法（cast.yaml 的 egg.draw）`);
+    fn(g, x, y, o.rot == null ? -0.25 : o.rot, o.s == null ? 0.9 : o.s, o.wave || 0); return true;
+  }
+  if (r === 'frames') { const key = o.action || Object.keys(EP.CAST.frames)[0]; EP.sprite(g, key, o.t || 0, x, y, o.h || 80, o); return true; }
+  return false;
 };
 })();

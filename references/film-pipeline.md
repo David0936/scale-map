@@ -2,7 +2,7 @@
 
 How a Scale Map story becomes a 60–90 second film drawn in code. The research, thesis and six frames come from stages 1–3 unchanged; this file covers what happens after.
 
-The render engine, gates and most craft rules belong to **huashu-art-motion**. This file adds only what Scale Map needs on top: how frames become shots, how media change with time, where David and the lobster go, and how facts reach the screen.
+The render engine, gates and most craft rules belong to **huashu-art-motion**. This file adds only what Scale Map needs on top: how frames become shots, how media change with time, where the cast (NPC and Easter egg) goes, and how facts reach the screen.
 
 ## 1. From six frames to a 镜头表
 
@@ -48,10 +48,12 @@ See [media-relay.md](media-relay.md). The rules in short:
 
 Before production, render **one story beat** (the most visual turning point works best) in three directions, each with a different composition, not just different colors. The user chooses. EP01's three directions were a media relay (street-side engraving), one-style patent plates (object close-up with numbered callouts), and isometric flat (cutaway diorama). The user chose a four-media relay as a compromise. See `products/robot-vacuum/films/60s/previews/style_directions.jpg`.
 
-## 4. David and the lobster in motion
+## 4. The cast in motion
 
-- **David** appears in at most two segments, always as a back, a silhouette or a distant figure inside a crowd: EP01 puts him as the young man in a flat cap among the onlookers in 1901. He never faces the camera and never explains. Code does not draw faces, so a face-to-camera David requires AI-generated frames (huashu `references/10-角色.md`); without those, keep him from behind.
-- **The lobster** hides once per medium at most, small and in the gutter, on a chimney, or as part 8 of a patent plate that the legend never mentions. It may wiggle its antennae. It never points at anything.
+The NPC and the Easter egg come from the product's cast (`cast:` in `product.yaml`; default `david`, i.e. David and the lobster). Rules and routes are in [cast.md](cast.md).
+
+- **The NPC** appears in at most two segments, always as a back, a silhouette or a distant figure inside a crowd: EP01 puts David as the young man in a flat cap among the onlookers in 1901. Never faces the camera, never explains. Code does not draw faces, so a face-to-camera NPC needs a frame library (huashu `references/10-角色.md`); without one, keep them from behind. In scene code write `if (!SM.npc(c, 'walk', t, x, y, h)) drawBackView(...)` so a cast with frames swaps in without edits.
+- **The Easter egg** hides once per style at most, small and in the gutter, on a chimney, or as part 8 of a patent plate that the legend never mentions. It may wiggle. It never points at anything. Place it with `SM.egg(c, '<style key>', x, y, {...})`; the cast decides whether that is a code-drawn silhouette, a frame library, or nothing.
 - Hands are the best actors: a hand pushing the 1876 sweeper or a hand on the 1908 upright tells the labor story without a face.
 
 ## 5. Build
@@ -77,6 +79,7 @@ products/<slug>/                 one product = one sub-repo (scale-map-<slug>)
 - `SM.shots(c, lt, [[t0, t1, fn], …])` hard-cuts between shots inside a segment.
 - `SM.boiled(key, t, drawFn)` caches three seeded versions of a static layer and swaps them at 8 fps. The line work boils, so a still drawing stays alive.
 - Engraving: `paper`, `hatch`, `tone`, `ink`, `solid`, `hose`, `caption`, `onlooker`, `lobsterInk`.
+- Cast: `SM.npc(c, action, t, x, y, h, o)` returns false when the cast has no frames; `SM.egg(c, style, x, y, o)`; `SM.sprite` for any frame library; `SM.CAST` holds the resolved cast.
 - Contemporary flat: `SM.F` palette, `robotSide`, `broomFlat`, `grain`. These are EP01-specific; add each new product's own object drawer here.
 
 ## 6. Pitfalls from EP01

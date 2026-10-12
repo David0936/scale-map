@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # 把一支片子接到 huashu-art-motion 引擎上：复制引擎到 <片子目录>/.work/engine（第一次），
-# 再把 Scale Map 工具包、本片 scenes、eras_<片名>.js 同步进去。之后打印渲染与门禁命令。
+# 再把 Scale Map 工具包、卡司（你的 IP 和宠物）、本片 scenes、eras_<片名>.js 同步进去。之后打印渲染与门禁命令。
 # 片子目录在产品子仓库里：products/<slug>/films/<id>
 #
 # 用法：motion/sync.sh products/robot-vacuum/films/60s
+# 卡司：product.yaml 的 cast:，或环境变量 SCALE_MAP_CAST 临时指定；查找顺序见 cast/README.md。
 # 引擎位置：环境变量 HUASHU_DIR，否则依次找 ~/.claude/skills、~/.agents/skills、~/.codex/skills 下的 huashu-art-motion。
 set -euo pipefail
 
@@ -32,11 +33,15 @@ if [ ! -d "$WORK" ]; then
   echo "已复制引擎 → $WORK"
 fi
 mkdir -p "$WORK/scale_map" "$WORK/$FILM/scenes"
-cp "$REPO/motion/kit/scale_map_kit.js" "$WORK/scale_map/kit.js"
+# 卡司：产品目录（films/<id> 往上两级）的 product.yaml 里 cast: 指定，没写就用 david
+PRODUCT="$(cd "$EP_DIR/../.." && pwd)"
+CAST="${SCALE_MAP_CAST:-$(python3 "$REPO/tools/cast.py" product-cast "$PRODUCT")}"
+python3 "$REPO/tools/cast.py" check "$CAST" --product "$PRODUCT" >/dev/null || { python3 "$REPO/tools/cast.py" check "$CAST" --product "$PRODUCT"; exit 1; }
+{ cat "$REPO/motion/kit/scale_map_kit.js"; python3 "$REPO/tools/cast.py" engine "$CAST" "$PRODUCT" "$WORK"; } > "$WORK/scale_map/kit.js"
 rm -f "$WORK/$FILM/scenes/"*.js
 cp "$EP_DIR/scenes/"*.js "$WORK/$FILM/scenes/"
 cp "$ERAS_FILE" "$WORK/"
-echo "已同步：kit、$(ls "$EP_DIR/scenes" | wc -l | tr -d ' ') 个场景、eras_$FILM.js"
+echo "已同步：kit、卡司 $CAST、$(ls "$EP_DIR/scenes" | wc -l | tr -d ' ') 个场景、eras_$FILM.js"
 
 L="$HUASHU/scripts"
 cat <<EOF

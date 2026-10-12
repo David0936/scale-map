@@ -24,19 +24,19 @@ Use 5–8 frames. For each frame include:
 - visual event and composition;
 - period and medium;
 - evidence represented in the image;
-- David: absent or exact in-world placement and action;
-- lobster: absent or exact Easter-egg placement;
+- NPC (from the product's cast): absent or exact in-world placement and action;
+- Easter egg (from the cast): absent or exact placement;
 - transition from the previous frame.
 
 ## 4. Image briefs
 
-Write one self-contained generation brief per frame containing subject, action, environment, spatial arrangement, era, medium, lighting, palette, camera or graphic logic, product identity constraints, David placement when used, lobster placement when used, aspect ratio, and exclusions.
+Write one self-contained generation brief per frame containing subject, action, environment, spatial arrangement, era, medium, lighting, palette, camera or graphic logic, product identity constraints, NPC placement and identity traits from the cast when used, Easter-egg placement when used, aspect ratio, and exclusions.
 
 Separate factual content from creative extrapolation. Do not rely on “same as previous frame” when the generation system cannot see prior images; restate continuity anchors.
 
 ## 5. Publishing copy
 
-Provide a title, short introduction, frame captions when needed, and an ending line that opens the disappearance question without explaining it away. Do not force engagement bait; the lobster already supplies an organic discovery loop.
+Provide a title, short introduction, frame captions when needed, and an ending line that opens the disappearance question without explaining it away. Do not force engagement bait; the Easter egg already supplies an organic discovery loop.
 
 ## 6. Evidence ledger
 
@@ -44,7 +44,7 @@ List sources beside the claims they support. Mark each claim as verified fact, i
 
 ## 7. Final audit
 
-State which checks passed, which decisions remain provisional, whether a David identity reference was actually available, and what must be reviewed before image generation or publication.
+State which checks passed, which decisions remain provisional, which cast was used, whether its identity reference was actually available, and what must be reviewed before image generation or publication.
 
 
 ## Film package (when the output is a film)
@@ -63,7 +63,8 @@ One beat rendered in three directions with different compositions, delivered as 
 
 - `eras_<film>.js` and `scenes/*.js`, synced and rendered through `motion/sync.sh`.
 - A contact sheet of stills for each segment in `previews/`.
-- `product.yaml` updated: status, ad slot second, preview path.
+- `product.yaml` updated: status, ad slot second, preview path, cast.
+- For a frame-library character, the eight delivery-bar checks from [cast.md](cast.md).
 - The finished film from `deliver.py`, plus its `交付说明.md` with the gate results, the independent review, and a one-line reason for each yellow light.
 
 ### 5 (film additions). Publishing copy

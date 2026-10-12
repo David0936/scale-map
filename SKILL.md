@@ -1,6 +1,6 @@
 ---
 name: scale-map
-description: Research and design historically grounded visual narratives that place a product on the scale of human desire, time, people, space, form, and future — as a carousel of still frames or as a 60–90 second animated film rendered in code. Use when the user asks to distill a product with Scale Map (产品蒸馏) or create its research, carousel story, art direction, image prompts, storyboard (镜头表), animated short, or distribution package.
+description: Research and design historically grounded visual narratives, with the creator's own character and pet as cast, that place a product on the scale of human desire, time, people, space, form, and future — as a carousel of still frames or as a 60–90 second animated film rendered in code. Use when the user asks to distill a product with Scale Map (产品蒸馏) or create its research, carousel story, art direction, image prompts, storyboard (镜头表), animated short, or distribution package.
 ---
 
 # Scale Map
@@ -78,7 +78,7 @@ Let the visual language evolve with time: classical painting; industrial print, 
 
 Treat artwork and architecture as evidence-bearing narrative devices. Write each visual brief around the claim, spatial logic, period evidence, product continuity, and intended viewer inference before adding stylistic detail.
 
-Read [references/style-bible.md](references/style-bible.md) before directing David, the lobster, historical media, or image continuity. Use [references/deliverable.md](references/deliverable.md) for the required output package.
+Resolve the product's cast with [references/cast.md](references/cast.md) (the creator's own NPC and pet; default `david`), then read [references/style-bible.md](references/style-bible.md) before directing the NPC, the Easter egg, historical media, or image continuity. Use [references/deliverable.md](references/deliverable.md) for the required output package.
 
 ### 5. Film (code-drawn animation)
 
@@ -98,8 +98,8 @@ Before delivery, verify:
 - Every factual claim has a traceable source or is explicitly marked interpretation/speculation.
 - Every frame advances one claim in the causal thesis.
 - The chosen medium explains its era rather than merely resembling it.
-- David is an in-world scale figure, never a recurring presenter.
-- The lobster is optional and never required to accompany David.
+- The cast's NPC is an in-world scale figure, never a recurring presenter; the Easter egg is optional and never required to accompany the NPC.
+- Characters follow their cast route: a frame library that passed the delivery bar, or backs and hands only. Code never draws faces.
 - Product form changes are motivated by technology, labor, space, economics, or behavior.
 - The final frame tests whether the object disappears when the need is solved.
 - Image prompts preserve the product's essential identity and do not contradict the research.

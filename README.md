@@ -76,7 +76,25 @@ Scale Map 想走第四条路：画风统一，史实有出处，每一帧都能�
 
 两种成品共用研究、论点、六帧故事、证据账本和角色规范。短片是把图文的因果主线放进时间里，不是另讲一个故事。
 
-**两个角色**：David 是 Narrative NPC，属于历史现场，建立空间尺度，不当主持人，短片里只出背影；小龙虾是 Visual Easter Egg，负责一点荒诞，每种媒介最多藏一只。
+
+## 角色：放进你自己的 IP 和宠物
+
+<p align="center"><img src="docs/images/cast.png" alt="两个角色位，四条路" width="360"></p>
+
+每支片子有两个角色位，谁来演由你定：
+
+- **叙事 NPC**：你的 IP。属于历史现场的人，也是画面的比例尺；不当主持人，不对镜头讲解，短片里最多出现在两段。
+- **彩蛋**：你的宠物或吉祥物。每种画风最多藏一次，负责一点荒诞，让人回头再找一遍。
+
+系列默认是 David ＋ 小龙虾。换成你自己的猫、狗、品牌吉祥物或你本人：
+
+```sh
+tools/cast.sh new mimi 阿明 --egg 咪咪      # 建在 ~/.config/scale-map/cast/，不进仓库
+# 写定规、放参考图和帧库，然后在产品的 product.yaml 里写  cast: mimi
+tools/cast.sh check mimi
+```
+
+规矩借鉴 [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) 的角色规范：角色要么画到位，要么不出脸。每个角色位选一条路：用 AI 按片子画风生成的**帧库**（要过八条交付线）、**只出手和背影**、代码画的**剪影**（只给小宠物），或者**不设**。代码不画人脸。场景代码统一用 `SM.npc` / `SM.egg` 放角色，换卡司不用改场景。完整做法见 **[cast/README.md](cast/README.md)**。
 
 ## 快速开始
 
@@ -109,14 +127,16 @@ tools/products.sh --write
 | 路径 | 内容 |
 |---|---|
 | [SKILL.md](SKILL.md) | 给 AI 的执行规则：六层地图、五个阶段、质量门 |
-| [references/style-bible.md](references/style-bible.md) | David、小龙虾、历史媒介、构图（含短片部分） |
+| [references/style-bible.md](references/style-bible.md) | NPC 和彩蛋怎么出场、历史媒介、构图（含短片部分） |
+| [references/cast.md](references/cast.md) | 给 AI 的卡司规则：查找顺序、三条路、交付线 |
 | [references/deliverable.md](references/deliverable.md) | 完整交付格式（图文与短片） |
 | [references/film-pipeline.md](references/film-pipeline.md) | 从六帧到镜头表、屏上字、搭建、EP01 踩过的坑、门禁 |
 | [references/media-relay.md](references/media-relay.md) | 媒介接力（旗舰集可选）对照表 |
 | [references/storyboard-template.md](references/storyboard-template.md) | 镜头表模板 |
-| [motion/](motion/) | 动画零件 `scale_map_kit.js` 和接引擎的 `sync.sh` |
+| [cast/](cast/) | 卡司：你的 IP 和宠物。默认 `david/`，模板 `_template/`，[怎么做](cast/README.md) |
+| [motion/](motion/) | 动画零件 `scale_map_kit.js`（含 `SM.npc` / `SM.egg`）和接引擎的 `sync.sh` |
 | [templates/product/](templates/product/) | 产品子仓库模板 |
-| [tools/](tools/) | `new-product.sh` 新开一期；`products.sh` 生成产品目录 |
+| [tools/](tools/) | `new-product.sh` 新开一期；`products.sh` 生成产品目录；`cast.sh` 建卡司、查卡司 |
 | [docs/](docs/) | [使用教程](docs/教程.md)、[仓库设计](docs/设计.md)、配图、系列介绍 PDF |
 | [products/](products/) | 各期产品子仓库 |
 

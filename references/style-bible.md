@@ -1,34 +1,26 @@
 # Scale Map Style Bible
 
-## David — the temporal NPC
+## The cast — your NPC and your Easter egg
 
-David is a **Narrative NPC**, not a host, lecturer, mascot, or page-by-page narrator. He belongs to the depicted world and functions like an architectural scale figure: both character and measure.
+Every story has two character slots, filled by the product's cast (`cast:` in `product.yaml`, default `david`). Read [cast.md](cast.md) for how to resolve the cast, the three routes, identity fidelity and the delivery bar. In short:
 
-For a default six-frame story:
+**Narrative NPC** — the creator's IP. A person who belongs to the depicted world and doubles as an architectural scale figure: both character and measure. Not a host, lecturer, mascot or page-by-page narrator.
 
-- Show David once on the cover and on only one or two interior frames, selected for narrative value.
-- Do not make him look at the camera in interior frames.
-- Keep him subordinate to the scene. He may be distant, small, partially occluded, or easy to miss.
-- Prefer a back, profile, reflection, half-face behind a window, or figure on stairs over a centered portrait.
-- Do not repeat the same pose, placement, or costume across eras.
+- Once on the cover and in only one or two interior frames, chosen for narrative value; no eye contact in interior frames.
+- Subordinate to the scene: distant, small, partly occluded, easy to miss. Prefer a back, profile, reflection, half-face behind a window, or a figure on stairs over a centered portrait.
+- Never the same pose, placement or costume twice across eras.
+- Plausible roles: a passerby in a seventeenth-century courtyard, a young engineer carrying plans through a factory, a student sketching at the back of a Bauhaus classroom, a neighbor examining an early robot vacuum, a tiny pedestrian in a future city.
 
-Plausible roles include a passerby in a seventeenth-century courtyard, a young engineer carrying plans through a factory, a student sketching at the back of a Bauhaus classroom, a neighbor examining an early robot vacuum, or a tiny pedestrian in a future city.
+The intended feeling is not "the NPC explains history" but **"they seem to have always been there."**
 
-The intended feeling is not “David explains history” but **“David seems to have always been there.”**
+**Easter egg** — the creator's pet or mascot. A small moment of absurdity and repeat-viewing pleasure.
 
-### Identity reference
+- Independent of the NPC; never force them together.
+- Never explains the thesis or replaces evidence.
+- Discoverable but secondary: beside a broom, inside a machine, on a sill, facing a monumental window.
+- Omit it when it weakens tone, period legibility or the main claim. Never announce where it hides.
 
-When a David/NPC reference image is supplied, treat it as the identity baseline. Preserve recognizable facial structure and other stable identity traits while adapting age presentation, wardrobe, medium, lighting, pose, and degree of visibility to the era. Do not fabricate a reference image when none is available; state that identity fidelity awaits the supplied asset.
-
-## Lobster — the visual Easter egg
-
-The lobster is a **Visual Easter Egg** that creates a small moment of absurdity and repeat-viewing pleasure.
-
-- David and the lobster have independent schedules; never force them to appear together.
-- The lobster does not explain the thesis or replace evidence.
-- Keep it discoverable but secondary: beside a broom, inside a machine, on a sill, or facing a monumental window.
-- Omit it when it weakens tone, period legibility, or the main claim.
-- Avoid announcing its location in the published frame; discovery is the interaction mechanism.
+The default cast is David (the series author) as NPC and a coral lobster as Easter egg; see [cast/david/cast.yaml](../cast/david/cast.yaml). Use the names and traits of whichever cast the product selects.
 
 ## Historical media as narrative evidence
 
@@ -58,8 +50,8 @@ Do not imitate a living artist or use an artwork merely because it is recognizab
 
 The same rules hold when the frames move; [film-pipeline.md](film-pipeline.md) has the full pipeline.
 
-- **David** appears in at most two segments, as a back, a silhouette or one figure inside a crowd. Code-drawn animation does not draw faces; a recognizable David needs AI-generated character frames built from his identity reference, otherwise keep him from behind.
-- **The lobster** hides at most once per medium and may twitch its antennae. It is never in the hook and never in the final question shot, so it does not compete with the thesis.
+- **The NPC** appears in at most two segments, as a back, a silhouette or one figure inside a crowd. Code-drawn animation does not draw faces; a recognizable NPC needs a frame library from the cast that passed the delivery bar in [cast.md](cast.md), otherwise keep them from behind. Place them with `SM.npc`, which falls back to your back-view drawing when the cast has no frames.
+- **The Easter egg** hides at most once per style and may twitch. It is never in the hook and never in the final question shot. Place it with `SM.egg`, so a different cast needs no scene changes.
 - **Hands** carry the labor story across eras: the hand pushing a sweeper, the hand on an upright vacuum's handle.
 - **Media relay**: a medium changes only at an era boundary, at most four media per film, one shared six-color palette. See [media-relay.md](media-relay.md).
 - **Continuity anchors** across media: the cleaning object itself, the floor line at the same height, and the opening room returning at the end.

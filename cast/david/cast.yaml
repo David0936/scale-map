@@ -1,0 +1,27 @@
+# 系列默认卡司：David（作者本人）＋ 小龙虾。
+# 想用自己的 IP 或宠物，不要改这个文件：tools/cast.sh new <id> 建一套你自己的，再在 product.yaml 里写 cast: <id>。
+id: david
+owner: David小鱼 · Claworld
+rights: David 的形象和小龙虾彩蛋只用于本系列，不随仓库授权给其他用途
+
+npc:
+  name: David
+  kind: person
+  route: back-only              # 还没有定稿的三视图和帧库；有了以后改成 frames
+  identity: []                  # 待补：拿到 David 的照片或三视图设定稿后，按 cast/README.md 写定规
+  silhouette: []                # 待补
+  carousel: 封面 1 次，正文 1–2 次，正文不看镜头
+  film: 最多 2 段，背影、剪影或混在人群里；EP01 是 1901 年围观人群里戴鸭舌帽的那个背影
+
+egg:
+  name: 小龙虾
+  kind: pet
+  route: code
+  draw:
+    flat: flatLobster           # 当代扁平：珊瑚色剪影
+    engraving: lobsterInk       # 铜版画：排线小龙虾
+  identity:
+    - 珊瑚色（扁平）或铜版画排线（印刷段）
+    - 侧身剪影，两只钳子朝前，一根长触须会抖
+    - 不画眼睛和脸
+  film: 每种画风最多藏 1 次；不进开场镜和结尾问题镜；EP01 藏在 1901 年围观人群脚边的马路牙子上

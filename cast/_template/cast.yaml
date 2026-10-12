@@ -1,0 +1,31 @@
+# 卡司：你的 IP（叙事 NPC）和你的宠物（彩蛋）。字段说明见 cast/README.md。
+# 一个卡司可以给很多期产品用；每期在 product.yaml 里写 cast: <id> 选一套。
+id: __ID__
+owner: __OWNER__                # 这套形象归谁
+rights: 仅限本人及授权方使用，不随仓库授权   # 只放你本人或你有权使用的形象
+
+# 叙事 NPC：属于历史现场的人，也是比例尺。不是主持人。
+npc:
+  name: __NPC__
+  kind: person                  # person 真人 | mascot 拟人吉祥物 | none 不设
+  route: back-only              # frames 帧库 | back-only 只出手和背影 | none 不出场
+  identity:                     # 定规：生图时每一条都写死，模型爱自作主张的地方尤其要写
+    -                           # 例：纯白渔夫帽（不是浅灰）
+    -                           # 例：圆框黑眼镜
+    -                           # 例：白 T、卡其短裤、左手腕黑手表
+  silhouette:                   # 只出背影时也认得出的特征（帽子、发型、包、站姿）
+    -
+  carousel: 封面 1 次，正文 1–2 次，正文不看镜头
+  film: 最多 2 段，背影、剪影或混在人群里
+
+# 彩蛋：宠物或吉祥物。负责一点荒诞和寻找乐趣，不讲道理。
+egg:
+  name: __EGG__
+  kind: pet                     # pet 宠物 | mascot 吉祥物 | object 物件 | none 不设
+  route: none                   # code 代码画（只画剪影，不画脸）| frames 帧库 | none 不设
+  draw:                         # route: code 时，每种画风用哪个代码函数（motion/kit 里的 SM.<函数>）
+    flat:
+    engraving:
+  identity:
+    -
+  film: 每种画风最多藏 1 次；不进开场镜和结尾问题镜

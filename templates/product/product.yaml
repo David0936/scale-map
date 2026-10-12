@@ -8,6 +8,7 @@ desire:                         # 一句话：人想少干哪件累活
 thesis:                         # 一句话因果论点
 question:                       # 结尾的消失之问
 next:                           # 下一期的 slug，片尾预告用
+cast: david                     # 卡司：你的 IP 和宠物，见母仓库 cast/README.md
 
 films:
   - id: 60s
